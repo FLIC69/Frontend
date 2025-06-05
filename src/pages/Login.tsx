@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Leaf, Lock, User } from 'lucide-react';
+import { Leaf, LogIn, User } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import { toast } from 'react-toastify';
 import InputField from '../components/InputField';
 import Button from '../components/Button';
 import { pageTransition, staggerContainer, itemFade } from '../utils/animations';
@@ -10,16 +11,14 @@ import { pageTransition, staggerContainer, itemFade } from '../utils/animations'
 const Login: React.FC = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
   const { login } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError('');
     
     if (!username || !password) {
-      setError('Please enter both username and password');
+      toast.error('Please enter both username and password');
       return;
     }
     
@@ -27,11 +26,9 @@ const Login: React.FC = () => {
       const success = await login(username, password);
       if (success) {
         navigate('/parameters');
-      } else {
-        setError('Invalid username or password');
       }
     } catch (err) {
-      setError('An error occurred during login');
+      console.error('Login error:', err);
     }
   };
 
@@ -87,16 +84,10 @@ const Login: React.FC = () => {
               autoComplete="current-password"
             />
 
-            {error && (
-              <div className="text-error-500 text-sm mt-2">
-                {error}
-              </div>
-            )}
-
             <div>
               <Button type="submit" variant="primary" fullWidth>
                 <div className="flex items-center justify-center">
-                  <Lock size={18} className="mr-2" />
+                  <LogIn size={18} className="mr-2" />
                   Sign in
                 </div>
               </Button>
@@ -110,7 +101,7 @@ const Login: React.FC = () => {
               </div>
               <div className="relative flex justify-center text-sm">
                 <span className="px-2 bg-white text-gray-500">
-                  Demo Account
+                  New here?
                 </span>
               </div>
             </div>
@@ -121,14 +112,11 @@ const Login: React.FC = () => {
                   type="button"
                   variant="secondary"
                   fullWidth
-                  onClick={() => {
-                    setUsername('demo');
-                    setPassword('password');
-                  }}
+                  onClick={() => navigate('/register')}
                 >
                   <div className="flex items-center justify-center">
                     <User size={18} className="mr-2" />
-                    Use Demo Account
+                    Register
                   </div>
                 </Button>
               </div>
