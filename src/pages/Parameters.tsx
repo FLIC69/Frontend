@@ -166,7 +166,7 @@ const Parameters: React.FC = () => {
               <option value="Standar">StandardModel</option>
               <option value="Simple NN">SimpleNN</option>
               <option value="Deeper NN">DeeperNN</option>
-              <option value="Super Deep NN">Red Neuronal</option>
+              <option value="Super Deep NN">Super Deep NN</option>
             </select>
           </div>
         </div>

@@ -1,25 +1,40 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Grid, ArrowLeft } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { useParameters } from '../context/ParameterContext';
-import CropCard from '../components/CropCard';
 import Button from '../components/Button';
-import { crops } from '../data/crops';
-import { pageTransition, staggerContainer } from '../utils/animations';
+import CropInfo from '../components/CropInfo';
+import { pageTransition } from '../utils/animations';
+
+// Sample crop data - in a real app, this would come from your backend
+const sampleCrop = {
+  id: "Ejemplo",
+  name: "Ejemplo",
+  description: "Lorem ipsum dolor sit amet consectetur adipiscing elit, velit vehicula etiam dictumst at fringilla, ridiculus in enim lacinia quisque mi. Mus nam lobortis luctus parturient pharetra scelerisque vitae eros, egestas libero neque tellus eget platea blandit, tincidunt facilisi taciti eu placerat faucibus semper.",
+  growthDuration: 85,
+  optimalTemperature: "65-85°F (18-29°C)",
+};
 
 const Crops: React.FC = () => {
-  const { selectCrop } = useParameters();
   const navigate = useNavigate();
-
-  const handleCropSelect = (crop: typeof crops[0]) => {
-    selectCrop(crop);
-    navigate(`/crop/${crop.id}`);
-  };
-
+  const [crop, setCrop] = useState(sampleCrop);
+  
+  // fetch the crop data from backend
+  useEffect(() => {
+    // Simulate loading data from backend
+    // fetch the crop from API
+    const timer = setTimeout(() => {
+      // Simulate the backend choosing a crop
+      setCrop(sampleCrop);
+    }, 500);
+    
+    return () => clearTimeout(timer);
+  }, []);
+  
+  
   return (
     <motion.div
-      className="py-8"
+      className="py-8 px-4 max-w-6xl mx-auto"
       variants={pageTransition}
       initial="initial"
       animate="animate"
@@ -28,9 +43,9 @@ const Crops: React.FC = () => {
       <div className="mb-8">
         <div className="flex justify-between items-center">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">Select a Crop</h1>
+            <h1 className="text-3xl font-bold text-gray-900 mb-2">Crop Growth Simulation</h1>
             <p className="text-gray-600">
-              Choose a crop to see how it would grow with your specified parameters.
+              Watch how your crop grows and learn about optimal growing conditions.
             </p>
           </div>
           <Button
@@ -45,30 +60,20 @@ const Crops: React.FC = () => {
         </div>
       </div>
 
-      <motion.div
-        className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
-        variants={staggerContainer}
-        initial="initial"
-        animate="animate"
-      >
-        {crops.map((crop) => (
-          <CropCard
-            key={crop.id}
-            crop={crop}
-            onClick={handleCropSelect}
-          />
-        ))}
-      </motion.div>
-
-      {crops.length === 0 && (
-        <div className="text-center py-12">
-          <Grid className="mx-auto h-12 w-12 text-gray-400" />
-          <h3 className="mt-2 text-lg font-medium text-gray-900">No crops available</h3>
-          <p className="mt-1 text-sm text-gray-500">
-            Try adjusting your parameters to see crop recommendations.
-          </p>
-        </div>
-      )}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5 }}
+          className="bg-gradient-to-b from-blue-50 to-green-50 rounded-xl p-6 shadow-sm"
+        >
+          <div>
+            Aquí va la animacion buenota
+          </div>
+        </motion.div>
+        
+        <CropInfo crop={crop} />
+      </div>
     </motion.div>
   );
 };
