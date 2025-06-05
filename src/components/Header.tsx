@@ -1,5 +1,5 @@
 import React from 'react';
-import { Leaf } from 'lucide-react';
+import { Sprout } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import Button from './Button';
@@ -17,7 +17,7 @@ const Header: React.FC = () => {
     <header className="bg-white shadow">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
         <div className="flex items-center">
-          <Leaf size={28} className="text-primary-500 mr-2" />
+          <Sprout size={28} className="text-primary-500 mr-2" />
           <h1 className="text-xl font-bold text-primary-700">Crop Recommendation</h1>
         </div>
         

@@ -58,9 +58,9 @@ export const ParameterProvider: React.FC<{ children: ReactNode }> = ({ children 
     ];
 
     try {
-      const resp = await fetch('/api/ai/predict', {
+      const resp = await fetch(`https://172.28.69.143/ai/predict`, {
         method: 'POST',
-        credentials: 'include', // include the JWT cookie if present
+        credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ features, model }),
       });
