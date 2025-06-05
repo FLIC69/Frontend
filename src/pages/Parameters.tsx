@@ -12,6 +12,8 @@ const Parameters: React.FC = () => {
   const { parameters, updateParameters } = useParameters();
   const [localParams, setLocalParams] = useState<ParameterValues>({...parameters});
   const navigate = useNavigate();
+  const [selectedModel, setSelectedModel] = useState("regresion");
+
 
   const handleInputChange = (name: keyof ParameterValues, value: string) => {
     const numValue = parseFloat(value);
@@ -122,6 +124,7 @@ const Parameters: React.FC = () => {
               <Droplets className="mr-2 text-accent-500" size={20} />
               Soil Properties
             </h2>
+
             <div className="space-y-4">
               <InputField
                 id="ph"
@@ -144,7 +147,30 @@ const Parameters: React.FC = () => {
               />
             </div>
           </div>
-          
+
+        <div className="mb-8">
+          <h2 className="text-xl font-semibold text-gray-800 mb-4 flex items-center">
+            <Leaf className="mr-2 text-primary-500" size={20} />
+            IA Model Selection
+          </h2>
+
+          <div className="mb-4">
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Modelo de IA
+            </label>
+            <select
+              className="w-full border border-gray-300 rounded-md p-2"
+              value={selectedModel}
+              onChange={(e) => setSelectedModel(e.target.value)}
+            >
+              <option value="Standar">StandardModel</option>
+              <option value="Simple NN">SimpleNN</option>
+              <option value="Deeper NN">DeeperNN</option>
+              <option value="Super Deep NN">Red Neuronal</option>
+            </select>
+          </div>
+        </div>
+  
           <div className="flex justify-end mt-8">
             <Button type="submit" variant="primary">
               <div className="flex items-center">
