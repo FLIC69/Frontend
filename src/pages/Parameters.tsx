@@ -1,35 +1,37 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { ChevronRight, Droplets, Leaf, Thermometer } from 'lucide-react';
-import { useParameters } from '../context/ParameterContext';
-import InputField from '../components/InputField';
-import Button from '../components/Button';
-import { pageTransition, staggerContainer, itemFade } from '../utils/animations';
-import { ParameterValues } from '../types';
+import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { motion } from 'framer-motion'
+import { ChevronRight, Droplets, Leaf, Thermometer } from 'lucide-react'
+import { useParameters } from '../context/ParameterContext'
+import InputField from '../components/InputField'
+import Button from '../components/Button'
+import { pageTransition, staggerContainer, itemFade } from '../utils/animations'
+import { ParameterValues } from '../types'
 
 const Parameters: React.FC = () => {
-  const { parameters, updateParameters } = useParameters();
-  const [localParams, setLocalParams] = useState<ParameterValues>({...parameters});
-  const navigate = useNavigate();
-  const [selectedModel, setSelectedModel] = useState("regresion");
-
+  const { predict, parameters, updateParameters } = useParameters()
+  const [localParams, setLocalParams] = useState<ParameterValues>({
+    ...parameters,
+  })
+  const navigate = useNavigate()
+  const [selectedModel, setSelectedModel] = useState('StandardModel')
 
   const handleInputChange = (name: keyof ParameterValues, value: string) => {
-    const numValue = parseFloat(value);
+    const numValue = parseFloat(value)
     if (!isNaN(numValue)) {
-      setLocalParams(prev => ({
+      setLocalParams((prev) => ({
         ...prev,
-        [name]: numValue
-      }));
+        [name]: numValue,
+      }))
     }
-  };
+  }
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    updateParameters(localParams);
-    navigate('/crops');
-  };
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    await predict(selectedModel)
+    updateParameters(localParams)
+    navigate('/crops')
+  }
 
   return (
     <motion.div
@@ -46,13 +48,19 @@ const Parameters: React.FC = () => {
         animate="animate"
       >
         <motion.div variants={itemFade}>
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Soil & Climate Parameters</h1>
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">
+            Soil & Climate Parameters
+          </h1>
           <p className="text-gray-600 mb-8">
-            Enter your soil and climate conditions for optimal crop recommendations.
+            Enter your soil and climate conditions for optimal crop
+            recommendations.
           </p>
         </motion.div>
 
-        <form onSubmit={handleSubmit} className="bg-white shadow-md rounded-lg p-6">
+        <form
+          onSubmit={handleSubmit}
+          className="bg-white shadow-md rounded-lg p-6"
+        >
           <div className="mb-8">
             <h2 className="text-xl font-semibold text-gray-800 mb-4 flex items-center">
               <Leaf className="mr-2 text-primary-500" size={20} />
@@ -68,17 +76,19 @@ const Parameters: React.FC = () => {
                 placeholder="Enter nitrogen value"
                 required
               />
-              
+
               <InputField
                 id="phosphorus"
                 type="number"
                 label="Phosphorus (P) kg/ha"
                 value={localParams.phosphorus.toString()}
-                onChange={(e) => handleInputChange('phosphorus', e.target.value)}
+                onChange={(e) =>
+                  handleInputChange('phosphorus', e.target.value)
+                }
                 placeholder="Enter phosphorus value"
                 required
               />
-              
+
               <InputField
                 id="potassium"
                 type="number"
@@ -90,7 +100,7 @@ const Parameters: React.FC = () => {
               />
             </div>
           </div>
-          
+
           <div className="mb-8">
             <h2 className="text-xl font-semibold text-gray-800 mb-4 flex items-center">
               <Thermometer className="mr-2 text-accent-500" size={20} />
@@ -102,11 +112,13 @@ const Parameters: React.FC = () => {
                 type="number"
                 label="Temperature (°C)"
                 value={localParams.temperature.toString()}
-                onChange={(e) => handleInputChange('temperature', e.target.value)}
+                onChange={(e) =>
+                  handleInputChange('temperature', e.target.value)
+                }
                 placeholder="Enter temperature"
                 required
               />
-              
+
               <InputField
                 id="humidity"
                 type="number"
@@ -118,7 +130,7 @@ const Parameters: React.FC = () => {
               />
             </div>
           </div>
-          
+
           <div className="mb-8">
             <h2 className="text-xl font-semibold text-gray-800 mb-4 flex items-center">
               <Droplets className="mr-2 text-accent-500" size={20} />
@@ -135,7 +147,7 @@ const Parameters: React.FC = () => {
                 placeholder="Enter pH"
                 required
               />
-              
+
               <InputField
                 id="rainfall"
                 type="number"
@@ -148,29 +160,29 @@ const Parameters: React.FC = () => {
             </div>
           </div>
 
-        <div className="mb-8">
-          <h2 className="text-xl font-semibold text-gray-800 mb-4 flex items-center">
-            <Leaf className="mr-2 text-primary-500" size={20} />
-            IA Model Selection
-          </h2>
+          <div className="mb-8">
+            <h2 className="text-xl font-semibold text-gray-800 mb-4 flex items-center">
+              <Leaf className="mr-2 text-primary-500" size={20} />
+              IA Model Selection
+            </h2>
 
-          <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Modelo de IA
-            </label>
-            <select
-              className="w-full border border-gray-300 rounded-md p-2"
-              value={selectedModel}
-              onChange={(e) => setSelectedModel(e.target.value)}
-            >
-              <option value="Standar">StandardModel</option>
-              <option value="Simple NN">SimpleNN</option>
-              <option value="Deeper NN">DeeperNN</option>
-              <option value="Super Deep NN">Super Deep NN</option>
-            </select>
+            <div className="mb-4">
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Modelo de IA
+              </label>
+              <select
+                className="w-full border border-gray-300 rounded-md p-2"
+                value={selectedModel}
+                onChange={(e) => setSelectedModel(e.target.value)}
+              >
+                <option value="StandardModel">Standard Model</option>
+                <option value="SimpleModel">Simple Model</option>
+                <option value="DeepModel">Deep Model</option>
+                <option value="SuperDeepModel">Super Deep Model</option>
+              </select>
+            </div>
           </div>
-        </div>
-  
+
           <div className="flex justify-end mt-8">
             <Button type="submit" variant="primary">
               <div className="flex items-center">
@@ -182,7 +194,7 @@ const Parameters: React.FC = () => {
         </form>
       </motion.div>
     </motion.div>
-  );
-};
+  )
+}
 
-export default Parameters;
+export default Parameters
