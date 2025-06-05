@@ -6,7 +6,6 @@ import Button from '../components/Button';
 import CropInfo from '../components/CropInfo';
 import { pageTransition } from '../utils/animations';
 
-// Sample crop data - in a real app, this would come from your backend
 const sampleCrop = {
   id: "Ejemplo",
   name: "Ejemplo",
