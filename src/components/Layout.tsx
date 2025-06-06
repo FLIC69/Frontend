@@ -6,7 +6,7 @@ import { pageTransition } from '../utils/animations'
 
 const Layout: React.FC = () => {
   return (
-    <div className="min-h-screen flex flex-col bg-blue-400">
+    <div className="min-h-screen flex flex-col">
       <Header />
       <motion.main
         className="flex-grow"
