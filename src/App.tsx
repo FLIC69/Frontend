@@ -10,6 +10,7 @@ import Parameters from './pages/Parameters'
 import Crops from './pages/Crops'
 import CropDetail from './pages/CropDetail'
 import Register from './pages/Register'
+import CanvasComponent from './pages/Canvas'
 
 interface ProtectedRouteProps {
   children: React.ReactNode
@@ -44,6 +45,7 @@ function App() {
             <Route path="/" element={<Layout />}>
               <Route index element={<Login />} />
               <Route path="register" element={<Register />} />
+              <Route path="experience" element={<CanvasComponent />} />
 
               {/* Protected Routes */}
 

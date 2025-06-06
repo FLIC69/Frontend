@@ -1,11 +1,13 @@
 // @ts-nocheck
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import restart from 'vite-plugin-restart'
 
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(), restart({ restart: [ '../public/**', ] }),],
+  publicDir: '/public/',
   optimizeDeps: {
     exclude: ['lucide-react'],
   },
