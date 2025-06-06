@@ -34,7 +34,7 @@ COPY --from=builder /app/dist /usr/share/nginx/html
 COPY nginx.conf /etc/nginx/nginx.conf
 
 # 4. Expose only port 443
-EXPOSE 443
+EXPOSE 8443
 
 # 5. Start nginx (foreground)
 CMD ["nginx", "-g", "daemon off;"]
