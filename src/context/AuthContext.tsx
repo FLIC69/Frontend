@@ -28,7 +28,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
    */
   const register = async (username: string, password: string): Promise<boolean> => {
     try {
-      const resp = await fetch(`https://172.28.69.143/users/register`, {
+      const resp = await fetch(`/users/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include', // so any Set-Cookie from the server is stored
@@ -70,7 +70,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
    */
   const login = async (username: string, password: string): Promise<boolean> => {
     try {
-      const resp = await fetch(`https://172.28.69.143/users/login`, {
+      const resp = await fetch(`/users/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include', // ensures the cookie your API sets is accepted by browser

@@ -58,7 +58,7 @@ export const ParameterProvider: React.FC<{ children: ReactNode }> = ({ children 
     ];
 
     try {
-      const resp = await fetch(`https://172.28.69.143/ai/predict`, {
+      const resp = await fetch(`/ai/predict`, {
         method: 'POST',
         credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
