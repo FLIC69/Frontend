@@ -30,7 +30,7 @@ RUN rm -rf ./*
 # 2. Copy the compiled Vite bundle
 COPY --from=builder /app/dist /usr/share/nginx/html
 
-# 3. Copy our custom nginx.conf (with only port 443)
+# 3. Copy our custom nginx.conf (with only port 8443)
 COPY nginx.conf /etc/nginx/nginx.conf
 
 # 4. Expose only port 443
