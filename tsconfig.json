@@ -1,7 +1,31 @@
 {
-  "files": [],
-  "references": [
-    { "path": "./tsconfig.app.json" },
-    { "path": "./tsconfig.node.json" }
-  ]
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@Providers/*": [
+        "src/Providers/*"
+      ],
+      "@components/*": [
+        "src/components/*"
+      ],
+      "@layout/*": [
+        "src/layout/*"
+      ],
+      "@pages/*": [
+        "src/pages/*"
+      ],
+      "@/*": [
+        "src/*"
+      ],
+      "@PredictDrawer/*": [
+        "src/components/PredictDrawer/*"
+      ],
+      "@data/*": [
+        "src/data/*"
+      ],
+      "@utils/*": [
+        "src/utils/*"
+      ]
+    }
+  }
 }
