@@ -1,28 +1,79 @@
 {
-  "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "@Providers/*": [
-        "src/Providers/*"
-      ],
-      "@components/*": [
-        "src/components/*"
-      ],
-      "@layout/*": [
-        "src/layout/*"
-      ],
-      "@pages/*": [
-        "src/pages/*"
-      ],
-      "@/*": [
-        "src/*"
-      ],
-      "@data/*": [
-        "src/data/*"
-      ],
-      "@utils/*": [
-        "src/utils/*"
-      ]
+    "compilerOptions": {
+        "baseUrl": ".",
+        "paths": {
+            "@Providers/*": [
+                "src/Providers/*"
+            ],
+            "@components/*": [
+                "src/components/*"
+            ],
+            "@data/*": [
+                "src/data/*"
+            ],
+            "@layout/*": [
+                "src/layout/*"
+            ],
+            "@pages/*": [
+                "src/pages/*"
+            ],
+            "@utils/*": [
+                "src/utils/*"
+            ],
+            "@/*": [
+                "src/*"
+            ],
+            "@context/*": [
+                "src/context/*"
+            ],
+            "@types/*": [
+                "src/types/*"
+            ],
+            "@AuthContext/*": [
+                "src/Providers/AuthContext/*"
+            ],
+            "@AnimationsContext/*": [
+                "src/Providers/AnimationsContext/*"
+            ],
+            "@MainProvider/*": [
+                "src/Providers/MainProvider/*"
+            ],
+            "@ModelLoader/*": [
+                "src/Providers/ModelLoader/*"
+            ],
+            "@ParametersContext/*": [
+                "src/Providers/ParametersContext/*"
+            ],
+            "@PredictionsContext/*": [
+                "src/Providers/PredictionsContext/*"
+            ],
+            "@CropPredictionModal/*": [
+                "src/components/CropPredictionModal/*"
+            ],
+            "@Experience/*": [
+                "src/components/Experience/*"
+            ],
+            "@LoginModal/*": [
+                "src/components/LoginModal/*"
+            ],
+            "@MainCanvas/*": [
+                "src/components/MainCanvas/*"
+            ],
+            "@Navbar/*": [
+                "src/components/Navbar/*"
+            ],
+            "@PredictDrawer/*": [
+                "src/components/PredictDrawer/*"
+            ],
+            "@AboutUs/*": [
+                "src/pages/AboutUs/*"
+            ],
+            "@Register/*": [
+                "src/pages/Register/*"
+            ],
+            "@Home/*": [
+                "src/pages/Home/*"
+            ]
+        }
     }
-  }
 }

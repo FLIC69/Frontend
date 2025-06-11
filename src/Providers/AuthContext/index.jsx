@@ -18,7 +18,7 @@ const AuthContext = createContext({
   },
   login: async (username, password) => {},
   logout: () => {},
-  register: async (username, password) => {},
+  register: async (username, password, regiscode) => {},
 })
 
 export function AuthProvider({ children }) {
@@ -27,12 +27,13 @@ export function AuthProvider({ children }) {
     username: '',
     isAuthenticated: false,
   })
+  const [regiscode, setRegiscode] = useState('')
 
   useEffect(() => {
     // On mount, check if user has a valid session
     const checkAuth = async () => {
       try {
-        const resp = await fetch(`/users/me`, {
+        const resp = await fetch(`https://ai-api-red-night-3839.fly.dev/users/me`, {
           method: 'GET',
           credentials: 'include',
         })
@@ -59,13 +60,13 @@ export function AuthProvider({ children }) {
     checkAuth()
   }, [])
 
-  const register = async (username, password) => {
+  const register = async (username, password, regiscode) => {
     try {
-      const resp = await fetch(`/users/register`, {
+      const resp = await fetch(`https://ai-api-red-night-3839.fly.dev/users/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include', // so any Set-Cookie from the server is stored
-        body: JSON.stringify({ username, password }),
+        body: JSON.stringify({ username, password, regiscode }),
       })
 
       console.log('Registration response:', resp)
@@ -97,7 +98,7 @@ export function AuthProvider({ children }) {
 
   const login = async (username, password) => {
     try {
-      const resp = await fetch(`/users/login`, {
+      const resp = await fetch(`https://ai-api-red-night-3839.fly.dev/users/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include', // let browser accept set-cookie
@@ -128,7 +129,7 @@ export function AuthProvider({ children }) {
   const logout = async () => {
     //Add a simple fetch to the logout endpoint
     try {
-      const resp = await fetch(`/users/logout`, {
+      const resp = await fetch(`https://ai-api-red-night-3839.fly.dev/users/logout`, {
         method: 'GET',
         credentials: 'include', // let browser accept set-cookie
       })
@@ -147,7 +148,7 @@ export function AuthProvider({ children }) {
   }
 
   return (
-    <AuthContext.Provider value={{ user, login, logout, register }}>
+    <AuthContext.Provider value={{ user, login, logout, register, regiscode, setRegiscode }}>
       {children}
     </AuthContext.Provider>
   )

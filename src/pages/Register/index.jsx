@@ -10,7 +10,7 @@ import { Button } from '@headlessui/react'
 const Register = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
-  const { register } = useAuthContext()
+  const { register, regiscode, setRegiscode } = useAuthContext()
   const navigate = useNavigate()
   const [loading, setLoading] = useState(false)
 
@@ -22,20 +22,20 @@ const Register = () => {
     }
     setLoading(true)
     try {
-      const success = await register(username, password)
+      const success = await register(username, password, regiscode)
       if (success) {
         setUsername(username)
         setPassword('')
       }
     } catch (err) {
-      toast.error('There was an error registering your account. Please try again.')
+      return
     }
     setLoading(false)
   }
 
   return (
     <motion.div
-      className="fixed inset-0 z-50 flex min-h-screen items-center justify-center bg-gray-100"
+      className="fixed inset-0 z-50 flex min-h-screen items-center justify-center bg-green-100"
       variants={pageTransition}
       initial="initial"
       animate="animate"
@@ -60,7 +60,7 @@ const Register = () => {
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               className="mt-1 w-full rounded border border-gray-300 bg-white/50 px-3 py-2 text-black focus:ring-1 focus:ring-green-400 focus:outline-none"
-              placeholder="Usuario"
+              placeholder="Username"
               autoComplete="username"
               required
             />
@@ -74,8 +74,21 @@ const Register = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               className="mt-1 w-full rounded border border-gray-300 bg-white/50 px-3 py-2 text-black focus:ring-1 focus:ring-green-400 focus:outline-none"
-              placeholder="Contraseña"
+              placeholder="Password"
               autoComplete="current-password"
+              required
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-black">
+              Registration Code
+            </label>
+            <input
+              type="password"
+              value={regiscode}
+              onChange={(e) => setRegiscode(e.target.value)}
+              className="mt-1 w-full rounded border border-gray-300 bg-white/50 px-3 py-2 text-black focus:ring-1 focus:ring-green-400 focus:outline-none"
+              placeholder="Registration Code"
               required
             />
           </div>

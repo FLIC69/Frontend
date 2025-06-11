@@ -16,6 +16,7 @@ import { useParametersContext } from '@Providers/index'
 import { Select, Input } from '@headlessui/react'
 import { usePredictionsContext } from '@Providers/PredictionsContext'
 import CropPredictionModal from '@components/CropPredictionModal'
+import { toast } from 'react-toastify'
 
 export default function PredictDrawer() {
   const [isOpen, setIsOpen] = useState(false)
@@ -90,6 +91,8 @@ export default function PredictDrawer() {
     if (!growFinished) return
 
     let cancelled = false
+
+    toast.info('Predicting crop... This may take a few seconds.')
 
     const runPrediction = async () => {
       const predicted = await predict(selectedModel) // you might need to store selectedModel in state/context if it's not in scope
@@ -169,11 +172,11 @@ export default function PredictDrawer() {
                     Nitrogen (N) kg/ha:
                   </label>
                   <div className="flex items-center gap-2">
-                    <Input {...getInputProps('N', 0, 100, 1)} />
+                    <Input {...getInputProps('N', 0, 145, 1)} />
                     <Slider
                       id="slider-N"
                       min={0}
-                      max={100}
+                      max={145}
                       step={1}
                       value={getSliderValue('N')}
                       onChange={(val) => handleInputChange('N', val)}
@@ -194,11 +197,11 @@ export default function PredictDrawer() {
                     Phosphorus (P) kg/ha:
                   </label>
                   <div className="flex items-center gap-2">
-                    <Input {...getInputProps('P', 0, 100, 1)} />
+                    <Input {...getInputProps('P', 0, 150, 1)} />
                     <Slider
                       id="slider-P"
                       min={0}
-                      max={100}
+                      max={150}
                       step={1}
                       value={getSliderValue('P')}
                       onChange={(val) => handleInputChange('P', val)}
@@ -219,11 +222,11 @@ export default function PredictDrawer() {
                     Potassium (K) kg/ha:
                   </label>
                   <div className="flex items-center gap-2">
-                    <Input {...getInputProps('K', 0, 100, 1)} />
+                    <Input {...getInputProps('K', 0, 210, 1)} />
                     <Slider
                       id="slider-K"
                       min={0}
-                      max={100}
+                      max={210}
                       step={1}
                       value={getSliderValue('K')}
                       onChange={(val) => handleInputChange('K', val)}

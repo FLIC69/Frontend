@@ -56,7 +56,7 @@ export function ParametersProvider({ children }) {
     // console.log('Predicting with features:', features)
     // console.log('Using model:', model)
     try {
-      const resp = await fetch('/ai/predict', {
+      const resp = await fetch('https://ai-api-red-night-3839.fly.dev/ai/predict', {
         method: 'POST',
         credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
